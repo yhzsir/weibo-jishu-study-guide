@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>第2章 均匀传输线理论 · 微波技术基础</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="brand">📡 微波技术基础 · 在线学习指南</div>
+  <div class="sub">第2章 均匀传输线理论（全书地基，考试权重最高）</div>
+</header>
+<nav class="topnav">
+  <a href="../index.html">首页</a>
+  <a href="ch1.html">第1章</a>
+  <a href="ch2.html" class="active">第2章</a>
+  <a href="ch3.html">第3章</a>
+  <a href="ch4.html">第4章</a>
+  <a href="ch5.html">第5章</a>
+  <a href="ch6.html">第6章</a>
+  <a href="zmatrix.html">Z矩阵</a>
+  <a href="smatrix.html">S矩阵</a>
+  <a href="videos.html">视频</a>
+</nav>
+<main>
+  <div class="card">
+    <h1>第2章 均匀传输线理论</h1>
+    <div class="toc">
+      本章结构：2.2 传输线方程及其解 → 2.3 工作特性参数与状态参量 → 2.4 无耗线三种状态（行波/驻波/行驻波）→ 2.5 功率/效率/损耗 → 2.6 史密斯圆图 → 2.7 阻抗匹配。<span class="tag exam">考试权重最高</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>2.2 均匀传输线方程及其解</h2>
+    <p><span class="tag">知识点</span> 把传输线看作无数个"无限小长度 Δz"的分布参数单元级联，每一小段含单位长度电阻R、电感L、电导G、电容C，由此推导出telegrapher's方程（电报方程）。</p>
+    <div class="formula">
+      时谐稳态下的传输线方程（相量形式）：<br>
+      dU(z)/dz = −(R + jωL)·I(z)<br>
+      dI(z)/dz = −(G + jωC)·U(z)<br>
+      定义传播常数：γ = α + jβ = √[(R+jωL)(G+jωC)]（α为衰减常数，β为相位常数）
+    </div>
+    <div class="formula">
+      通解（行波叠加形式）：<br>
+      U(z) = A₁e<sup>−γz</sup> + A₂e<sup>γz</sup>　　（入射波 + 反射波）<br>
+      I(z) = (A₁e<sup>−γz</sup> − A₂e<sup>γz</sup>) / Z₀
+    </div>
+    <p>常数 A₁、A₂ 由终端边界条件（z=0处 U(0)=U<sub>l</sub>, I(0)=I<sub>l</sub>）确定，这是求解一切传输线问题的起点。</p>
+  </div>
+
+  <div class="card">
+    <h2>2.3 工作特性参数与状态参量</h2>
+    <p><span class="tag">知识点</span> 工作特性参数（由传输线本身结构决定，与信号源/负载无关）：</p>
+    <div class="formula">
+      特性阻抗：Z₀ = √[(R+jωL)/(G+jωC)]　（无耗线：Z₀ = √(L/C)，为纯电阻）<br>
+      传播常数：γ = α + jβ<br>
+      相速：v<sub>p</sub> = ω/β；波长：λ = 2π/β
+    </div>
+    <p><span class="tag">知识点</span> 状态参量（随负载、位置变化）：</p>
+    <div class="formula">
+      反射系数：Γ(z) = Γ<sub>L</sub>·e<sup>−2jβz</sup>，其中 Γ<sub>L</sub> = (Z<sub>L</sub>−Z₀)/(Z<sub>L</sub>+Z₀)<br>
+      输入阻抗：Z<sub>in</sub>(l) = Z₀·(Z<sub>L</sub> + jZ₀tanβl)/(Z₀ + jZ<sub>L</sub>tanβl)<br>
+      电压驻波比：ρ (VSWR) = (1+|Γ|)/(1−|Γ|)，ρ∈[1,∞)
+    </div>
+    <div class="example">
+      <details>
+        <summary>[例2.1] Z₀=50Ω, f=3GHz, Z<sub>L</sub>=30+j40Ω，求距负载0.0375m处输入阻抗</summary>
+        <p>β = 2πf/c = 20π rad/m；βl = 20π×0.0375 = 0.75π = 135°，tan135° = −1。</p>
+        <p>代入输入阻抗公式：Z<sub>in</sub> = 50×(30+j40 − j50)/(50 − j(30+j40)) = 50×(30−j10)/(90−j30)</p>
+        <p>注意到 90−j30 = 3×(30−j10)，分子分母约分后 Z<sub>in</sub> = 50/3 ≈ <b>16.7 Ω</b>（纯电阻）。</p>
+      </details>
+    </div>
+    <div class="example">
+      <details>
+        <summary>[例2.2] Z₀=50Ω终端接100Ω负载，求终端反射系数及0.2λ处驻波比</summary>
+        <p>Γ<sub>L</sub> = (100−50)/(100+50) = 1/3（实数，相位为0）。</p>
+        <p>驻波比只由 |Γ| 决定、与位置无关：ρ = (1+1/3)/(1−1/3) = <b>2</b>。这是本题的易错点——驻波比沿线处处相同，不需要代入0.2λ重新计算。</p>
+      </details>
+    </div>
+    <div class="exampoint">
+      <b>考点：</b>区分"工作特性参数"（Z₀、γ，传输线本身属性）与"状态参量"（Γ、Z<sub>in</sub>、ρ，与负载/位置有关）是选择题高频考点。
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>2.4 无耗均匀传输线的状态分析</h2>
+    <p><span class="tag">知识点</span> 根据 |Γ<sub>L</sub>| 把无耗线工作状态分为三类：</p>
+    <table>
+      <tr><th>状态</th><th>条件</th><th>特征</th></tr>
+      <tr><td>行波状态</td><td>Z<sub>L</sub>=Z₀（匹配），Γ=0</td><td>电压电流沿线振幅不变，无驻波，功率全部传输给负载</td></tr>
+      <tr><td>驻波状态</td><td>Z<sub>L</sub>=0（短路）/∞（开路）/±jX（纯电抗），|Γ|=1</td><td>全反射，电压电流呈正弦驻波分布，波腹波节点固定且相差λ/4</td></tr>
+      <tr><td>行驻波状态</td><td>一般复数负载，0&lt;|Γ|&lt;1</td><td>介于两者之间，振幅有起伏但不为零，工程中最常见</td></tr>
+    </table>
+    <div class="example">
+      <details>
+        <summary>[例2.3] Z₀=50Ω, Z<sub>L</sub>=40−j30Ω，求Γ<sub>L</sub>、ρ、第一波腹/波节点位置</summary>
+        <p>Γ<sub>L</sub> = (40−j30−50)/(40−j30+50) = (−10−j30)/(90−j30) = (1/3)∠−90° = −j/3，|Γ<sub>L</sub>|=1/3，ρ=2。</p>
+        <p>电压波腹（最大值）出现在相位满足 θ<sub>L</sub>−2βd ≡ 0 (mod 2π) 处；计算得第一波腹点 d<sub>max</sub> = 3λ/8，第一波节点（波腹再退λ/4）d<sub>min</sub> = λ/8。</p>
+      </details>
+    </div>
+    <div class="teach-box">
+      <b>讲解分析：</b>行驻波状态下，"相位滞后 Φ<sub>l</sub>"是理解波腹波节点位置的关键——反射系数相位每经过λ/4传输线就旋转180°（即 −2βd，d每变化λ/4，相位变化π）。建议结合史密斯圆图（2.6节）中"顺时针旋转"的图像记忆，而非死记位置公式。
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>2.5 传输线的传输功率、效率和损耗</h2>
+    <div class="formula">
+      传输功率：P = (1/2)Re[U(z)I*(z)] = (|A₁|²/2Z₀)(1−|Γ|²)　（无耗线上任意截面功率相同）<br>
+      回波损耗 RL(dB) = −20log₁₀|Γ|　（表征反射大小，RL越大，反射越小，匹配越好）<br>
+      插入损耗 IL(dB)：表征信号经过网络后的功率损失
+    </div>
+    <div class="exampoint"><b>考点：</b>回波损耗与驻波比、反射系数的相互换算，是计算题常见考法，需熟记三者关系式。</div>
+  </div>
+
+  <div class="card">
+    <h2>2.6 史密斯圆图</h2>
+    <p><span class="tag">知识点</span> 核心思想：把复杂的复数阻抗/反射系数运算转化为圆图上的"几何作图"，核心是<b>归一化</b>（z = Z/Z₀）与反射系数的复平面表示 Γ = (z−1)/(z+1)。</p>
+    <div class="formula">
+      等反射系数圆 |Γ|=常数 → 圆图上以原点为圆心的同心圆<br>
+      等电阻圆 r=常数、等电抗圆 x=常数 → 两族相切于(1,0)点的圆弧<br>
+      圆图上顺时针旋转 = 向波源方向移动（增大z的方向）
+    </div>
+    <div class="example">
+      <details>
+        <summary>例2.5~2.8：阻抗-导纳互换、驻波比与反射系数、输入阻抗图解、由驻波参数反推负载</summary>
+        <p>例2.5（Z=30+j40Ω, Z₀=50Ω求Y）：先归一化 z=0.6+j0.8，圆图上找到z点后绕圆图旋转180°（即过原点的对称点）直接读出 y，体现"串联用阻抗圆图、并联用导纳圆图、旋转180°互换"的方法。</p>
+        <p>例2.7（Z₀=50Ω, Z<sub>L</sub>=40−j30Ω，求0.2λ处输入阻抗）：圆图上定位归一化负载点后，沿等|Γ|圆顺时针转动 2×(0.2λ)/λ×360°=144° 即可直接读出输入阻抗，免去公式代入的复数运算，这正是圆图的价值所在。</p>
+        <p>例2.8（已知ρ=5，波节点在λ/3处，反推负载阻抗）：从圆图实轴上 r=1/ρ 点出发（波节点必在纯电阻且小于Z₀处），沿等|Γ|圆逆时针（向负载方向）旋转对应电长度，读出负载阻抗，是"正向用图"的逆过程。</p>
+      </details>
+    </div>
+    <div class="teach-box">
+      <b>教学建议：</b>史密斯圆图是"手算工具"，考试中更常考查"原理与读图方法"而非要求现场精确作图。复习重点：①归一化的含义；②阻抗圆图与导纳圆图的转换（旋转180°）；③顺时针=朝信号源方向移动。
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>2.7 阻抗匹配</h2>
+    <p><span class="tag">知识点</span> "匹配"是微波技术的核心目标——消除反射、保证功率有效传输、提高系统稳定性。三种匹配状态：①负载阻抗匹配（Z<sub>L</sub>=Z₀）；②源阻抗匹配；③无反射状态下的级联匹配。</p>
+    <h3>方法一：四分之一波长阻抗变换器</h3>
+    <div class="formula">
+      Z<sub>λ/4</sub> = √(Z₀·Z<sub>L</sub>)　（要求负载为纯电阻，变换器特性阻抗取两端阻抗的几何平均值）
+    </div>
+    <h3>方法二：枝节调配器（单枝节匹配）</h3>
+    <p>原理：在距负载 l₁ 处并联一段长度为 l₂ 的短路（或开路）支节线，用支节提供的纯电抗抵消主线在该点的电纳部分，使输入导纳实部归一化为1。</p>
+    <div class="example">
+      <details>
+        <summary>[例2.10] Z₀=50Ω, f=300MHz, Z<sub>L</sub>=40+j30Ω，求单支节匹配的 l₁、l₂</summary>
+        <p>求解思路：①归一化负载阻抗并转换为导纳；②在史密斯导纳圆图上找到 y=1+jb 与等|Γ|圆的交点，读出需要移动的电长度得到 l₁；③从短路点（圆图最左端）转到使支节电纳为 −jb 的位置，读出 l₂ 的电长度。两个交点通常各对应一组解（l₁较短/l₂较短 两种方案），工程上一般选用线长较短的方案以减小插入损耗与带宽损失。</p>
+      </details>
+    </div>
+    <div class="exampoint">
+      <b>考点：</b>①四分之一波长变换器公式的推导与适用条件（仅适用于纯电阻负载，复数负载需先用一段传输线转换到纯阻点）；②枝节匹配两组解的物理意义与工程取舍原则，是简答题常考角度。
+    </div>
+  </div>
+
+  <div class="pagenav">
+    <a href="ch1.html">← 第1章 绪论</a>
+    <a href="ch3.html">第3章：规则金属波导 →</a>
+  </div>
+</main>
+<footer>微波技术基础 · 学习指南</footer>
+</body>
+</html>

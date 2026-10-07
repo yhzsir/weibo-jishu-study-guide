@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>第1章 绪论 · 微波技术基础</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="brand">📡 微波技术基础 · 在线学习指南</div>
+  <div class="sub">第1章 绪论</div>
+</header>
+<nav class="topnav">
+  <a href="../index.html">首页</a>
+  <a href="ch1.html" class="active">第1章</a>
+  <a href="ch2.html">第2章</a>
+  <a href="ch3.html">第3章</a>
+  <a href="ch4.html">第4章</a>
+  <a href="ch5.html">第5章</a>
+  <a href="ch6.html">第6章</a>
+  <a href="zmatrix.html">Z矩阵</a>
+  <a href="smatrix.html">S矩阵</a>
+  <a href="videos.html">视频</a>
+</nav>
+<main>
+  <div class="card">
+    <h1>第1章 绪论</h1>
+    <div class="toc">
+      本章脉络：<b>What（是什么）→ Why（为什么重要）→ How（如何分析）</b>，这是赵楠教授反复强调的"三问"框架，也是考试简答题的常见出题角度。
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>一、知识点：微波是什么（What）</h2>
+    <p><span class="tag">知识点</span> microwave = micro（微）+ wave（波），字面含义是"很短的波"，但"微"是人为划定的频段范围，并非绝对的物理界限。</p>
+    <div class="formula">
+      频率范围：f = 300 MHz ~ 3000 GHz（3×10⁸ ~ 3×10¹² Hz）<br>
+      波长范围：λ = c/f，对应 λ = 0.1 mm ~ 1 m<br>
+      电磁波波速与频率关系：f·λ = c（c = 3×10⁸ m/s，真空中光速）
+    </div>
+    <p>判定一个波是否为"微波"需要<b>两个条件同时满足</b>：① 是电磁波（而非机械波，如声波）；② 频率落在 300MHz~3000GHz 区间。常见易错点：仅凭波长数值判断，不排除声波等机械波的干扰。</p>
+    <div class="example">
+      <details>
+        <summary>例题回顾：声波是否属于微波？</summary>
+        <p>已知空气中声速 v声 ≈ 340 m/s，某声波频率范围对应波长 0.017m~17m，数值上落在"微波波长"区间，但声波的传播速度是声速而非光速（v声 ≠ c），且声波是机械波、不是电磁波，因此<b>声波不是微波</b>。这道题的考点是"概念辨析"而非计算。</p>
+      </details>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>二、知识点：微波的特点与里程碑</h2>
+    <p><span class="tag">知识点</span> 微波的五大特点：</p>
+    <table>
+      <tr><th>特点</th><th>含义</th><th>典型应用体现</th></tr>
+      <tr><td>似光性</td><td>波长远小于一般障碍物尺寸，具有直线传播、反射、折射等类光学特性</td><td>微波通信的视距传输、雷达定向</td></tr>
+      <tr><td>波动性</td><td>满足干涉、衍射、偏振等波动规律</td><td>天线方向图、波导模式</td></tr>
+      <tr><td>穿透性</td><td>可穿透电离层、烟雾、非金属介质</td><td>卫星通信、安检成像</td></tr>
+      <tr><td>信息性</td><td>频率高、带宽宽，可承载大容量信息</td><td>5G毫米波通信</td></tr>
+      <tr><td>能量性</td><td>可用于能量传输与转换</td><td>微波炉加热、消毒</td></tr>
+    </table>
+    <div class="teach-box">
+      <b>讲解分析：</b>五大特点不是孤立的，"似光性+波动性"决定了微波既可以用"路"的方法（低频思路的延伸）也可以用"场"的方法分析，这也是本课程第2章（路分析法）和第3章（场分析法）并行展开的根本原因。
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>三、知识点：微波技术的重要性（Why）</h2>
+    <p><span class="tag">知识点</span> 三个层面的原因：</p>
+    <ol>
+      <li><b>频率需求不断提升</b>：CPU主频达GHz量级；通信中"载波频率越高→可用带宽越宽→传输速率越高"（5G毫米波载波20~50GHz，配合Massive MIMO，频率越高天线尺寸越小、越容易阵列化）；雷达天线尺寸与工作波长成正比，要做小天线就要用短波长（高频）。</li>
+      <li><b>低频电路理论在微波频段失效</b>：类比"牛顿力学→相对论→量子力学"的适用范围演化，基尔霍夫定律（集总参数电路）只是麦克斯韦方程组在波长远大于电路尺寸时的近似，频率升高、波长变短后，必须回归麦克斯韦方程组这个更本质的工具。</li>
+      <li><b>应用广泛、国计民生需求重大</b>：通信、雷达、加热消毒、航天、导弹、安检、电子战等。</li>
+    </ol>
+    <div class="exampoint">
+      <b>考点：</b>"为什么低频电路理论不能直接用于微波电路？"是高频简答题，标准答案要点：当电路尺寸可以与工作波长相比拟甚至更大时，电压、电流不再是唯一确定的物理量（波动效应显著，存在相位延迟和驻波），必须用电磁场的观点（E、H）代替电路的观点（U、I），基尔霍夫定律是麦克斯韦方程组忽略位移电流、假设波长远大于电路尺寸后的近似结果。
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>四、知识点：微波的分析方法（How）——全书总纲</h2>
+    <table>
+      <tr><th>方法</th><th>思路</th><th>特点</th><th>对应章节</th></tr>
+      <tr><td>路分析法</td><td>化场为路：用传输线方程得到近似的 U、I</td><td>简便、工程中最常用</td><td>第2章 均匀传输线理论</td></tr>
+      <tr><td>场分析法</td><td>直接求解麦克斯韦方程组，得到 E、H 表达式</td><td>严格但繁琐</td><td>第3章 规则金属波导</td></tr>
+      <tr><td>网络分析法</td><td>从整体"黑箱"角度，用矩阵（Z/Y/ABCD/S）描述端口关系</td><td>适合复杂系统级分析，与微波器件设计直接对接</td><td>第5章 微波网络基础</td></tr>
+    </table>
+    <div class="teach-box">
+      <b>教学建议：</b>第1章看似简单，实际是全书的"地图"。建议学习每一新章节前都回到这张表格，明确当前内容属于"路/场/网络"中的哪一种分析方法，避免只见树木不见森林。
+    </div>
+  </div>
+
+  <div class="pagenav">
+    <a href="../index.html">← 返回首页</a>
+    <a href="ch2.html">下一章：均匀传输线理论 →</a>
+  </div>
+</main>
+<footer>微波技术基础 · 学习指南</footer>
+</body>
+</html>

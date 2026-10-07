@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>第3章 规则金属波导 · 微波技术基础</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="brand">📡 微波技术基础 · 在线学习指南</div>
+  <div class="sub">第3章 规则金属波导（场分析法）</div>
+</header>
+<nav class="topnav">
+  <a href="../index.html">首页</a>
+  <a href="ch1.html">第1章</a>
+  <a href="ch2.html">第2章</a>
+  <a href="ch3.html" class="active">第3章</a>
+  <a href="ch4.html">第4章</a>
+  <a href="ch5.html">第5章</a>
+  <a href="ch6.html">第6章</a>
+  <a href="zmatrix.html">Z矩阵</a>
+  <a href="smatrix.html">S矩阵</a>
+  <a href="videos.html">视频</a>
+</nav>
+<main>
+  <div class="card">
+    <h1>第3章 规则金属波导</h1>
+    <div class="toc">
+      本章脉络：3.2-3.3 导波原理与矩形波导（纵向场法求解TE/TM模）→ 3.4 圆波导 → 3.5 波导的激励与耦合。核心方法是<b>场分析法</b>：从无源区麦克斯韦方程组出发，推导亥姆霍兹方程，用"纵向分量求解+横向分量表示"的套路得到各模式场分布。
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>3.2-3.3 导波原理与矩形波导</h2>
+    <p><span class="tag">知识点</span> 求解思路三步走（考试常考"简答"）：</p>
+    <ol>
+      <li>由无源区麦克斯韦方程组导出 E、H 满足的<b>亥姆霍兹方程</b>（∇²E+k²E=0）；</li>
+      <li>利用波导轴向传输假设，把纵向分量 E_z、H_z 分离变量求解（纵向分量方程是标量亥姆霍兹方程，边界条件简单）；</li>
+      <li>用纵向分量反推横向分量（E_x、E_y、H_x、H_y 可完全由 E_z、H_z 线性表出），再代入边界条件定出波型。</li>
+    </ol>
+    <div class="formula">
+      矩形波导（a×b，a&gt;b）TE_mn / TM_mn 模：<br>
+      截止波数：k_c = √[(mπ/a)² + (nπ/b)²]<br>
+      截止波长：λ_c = 2 / √[(m/a)² + (n/b)²]<br>
+      相移常数：β = √(k² − k_c²) ，k=2πf/c = 2π/λ<br>
+      TE_mn：m、n 不能同时为0；TM_mn：m、n 都不能为0（否则场全为零）
+    </div>
+    <p><span class="tag">知识点</span> <b>TE₁₀主模</b>：m=1,n=0,是截止波数最小（λ_c最大=2a）的模式，是矩形波导中最先导通、单模传输时唯一使用的模式。</p>
+    <div class="formula">
+      TE₁₀模场分量（仅含 E_y, H_x, H_z）：<br>
+      E_y = E₀ sin(πx/a) e^(−jβz)<br>
+      λ_c(TE10) = 2a ；单模传输条件：a &lt; λ &lt; 2a（大致范围，需同时保证高次模截止、低次不出现消逝）
+    </div>
+    <div class="exampoint"><b>考点：简并模</b> —— TE_mn 与 TM_mn（m,n均不为0）具有相同的 λ_c，二者在矩形波导中为<b>简并模</b>；但单独的 TE_m0 或 TE_0n 没有对应的简并 TM 模（因为 TM 要求 m,n 均非零）。</div>
+    <p><span class="tag">知识点</span> 相速与群速（有色散）：</p>
+    <div class="formula">
+      相速：v_p = ω/β = c / √(1−(λ/λ_c)²) &gt; c（波导中相速可超光速，但不违反相对论——能量不是以相速传播）<br>
+      群速：v_g = c · √(1−(λ/λ_c)²) &lt; c（能量/信息传播速度）<br>
+      v_p · v_g = c²
+    </div>
+    <div class="teach-box"><b>讲解分析：</b>"相速超光速"是本章最容易引发误解的点。相速只是等相位面移动的速度，并不传递能量或信息；真正携带能量的是群速，恒小于光速，物理上自洽。可类比"剪刀交点移动速度可超光速"的经典科普例子帮助理解。</div>
+    <p><span class="tag">知识点</span> 波导衰减：工作于截止频率以下时，β变为虚数，波按 e^(−αz) 指数衰减，称为<b>截止模/消逝模</b>——这解释了"为什么叫截止波长"：高于截止频率的模式才能真正传导，低于的则在源附近迅速衰减为零。实际衰减还包括导体损耗和介质损耗两部分（见衰减常数α的工程计算公式）。</p>
+  </div>
+
+  <div class="card">
+    <h2>3.4 圆波导</h2>
+    <p><span class="tag">知识点</span> 圆波导场解用贝塞尔函数描述，TE_mn、TM_mn 截止波长由贝塞尔函数（导数）的零点决定：</p>
+    <div class="formula">
+      TM_mn：λ_c = 2πa / p_mn （p_mn 为 m 阶贝塞尔函数 J_m 的第 n 个零点）<br>
+      TE_mn：λ_c = 2πa / p'_mn （p'_mn 为 J_m' 的第 n 个零点）
+    </div>
+    <table>
+      <tr><th>模式</th><th>归一化零点</th><th>λ_c/a</th><th>说明</th></tr>
+      <tr><td>TE₁₁</td><td>p'₁₁=1.8412</td><td>3.4126</td><td><b>圆波导主模</b>，λ_c最大</td></tr>
+      <tr><td>TM₀₁</td><td>p₀₁=2.4049</td><td>2.6127</td><td>次低模，常用于定向耦合、圆极化器</td></tr>
+      <tr><td>TE₀₁</td><td>p'₀₁=3.8317</td><td>1.6398</td><td>低损耗模，用于远距离传输（如毫米波传输系统）</td></tr>
+    </table>
+    <div class="exampoint">
+      <b>考点：为什么圆波导主模是 TE₁₁ 而不是 TE₀₁？</b> 按照截止波长公式逐一计算对比可知 TE₁₁ 的 λ_c 最大（p'₁₁=1.8412 最小），因此截止频率最低，最先导通，为主模；TE₀₁ 虽然低损耗（常用于毫米波长距离传输），但不是最低次模。
+    </div>
+    <p><span class="tag">知识点</span> 圆波导的<b>两类简并</b>（重要辨析）：</p>
+    <table>
+      <tr><th>类型</th><th>定义</th><th>后果</th></tr>
+      <tr><td>模式简并</td><td>不同(m,n)模式有相同λ_c，如 TE₀n 与 TM₁n</td><td>与矩形波导类似，是"无关模式、巧合同频"</td></tr>
+      <tr><td>极化简并</td><td>m≠0时，场可绕轴任意取向（sin mφ / cos mφ 两种极化同时存在且同频）</td><td>波导轴向稍有不均匀即引起极化面旋转，<b>很难维持单一线极化的单模传输</b>，是圆波导工程应用中的突出难题</td></tr>
+    </table>
+    <div class="teach-box"><b>讲解分析：</b>极化简并是圆波导独有、矩形波导没有的问题（因为矩形波导的两个边长 a≠b 破坏了旋转对称性，天然区分了极化方向）。工程上常通过椭圆波导或加极化抑制筋来解决。</div>
+  </div>
+
+  <div class="card">
+    <h2>3.5 波导的激励与耦合</h2>
+    <p><span class="tag">知识点</span> 激励（把外部信号转为波导内的场）与耦合（从波导中提取场能量）互为逆过程，分析方法通用。三种常见激励方式：</p>
+    <table>
+      <tr><th>方式</th><th>原理</th><th>激励模式要点</th></tr>
+      <tr><td>电激励（探针）</td><td>短探针插入波导，平行于待激励模式的电场方向</td><td>探针方向应与所需模式E场方向一致，位置选在该模式场强最大处</td></tr>
+      <tr><td>磁激励（环/耦合环）</td><td>小环法向与待激励模式磁场方向一致，感应磁场激发对应模式</td><td>环面法线方向对准所需模式H场方向</td></tr>
+      <tr><td>孔缝激励（小孔耦合）</td><td>公共壁上开小孔，两侧场通过孔缝耦合</td><td>可做成定向耦合器（第6章具体器件）</td></tr>
+    </table>
+    <div class="teach-box"><b>讲解分析：</b>课件中"没有手指（琴师），如何评价琴？没有激励，如何评价波导？"这句话点出了本节的教学目的——前面(3.2~3.4)求的是波导的"本征解"（无激励时能支持哪些模式），本节解决"如何在实际中把能量送入/引出指定模式"的工程问题，两者合起来才是完整的波导理论。</div>
+  </div>
+
+  <div class="pagenav">
+    <a href="ch2.html">← 第2章 均匀传输线理论</a>
+    <a href="ch4.html">第4章：微波集成传输线 →</a>
+  </div>
+</main>
+<footer>微波技术基础 · 学习指南</footer>
+</body>
+</html>

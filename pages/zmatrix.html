@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>专题 · Z矩阵的无耗性推导 · 微波技术基础</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="brand">📡 微波技术基础 · 在线学习指南</div>
+  <div class="sub">补充专题 · Z矩阵的无耗性推导</div>
+</header>
+<nav class="topnav">
+  <a href="../index.html">首页</a>
+  <a href="ch1.html">第1章</a>
+  <a href="ch2.html">第2章</a>
+  <a href="ch3.html">第3章</a>
+  <a href="ch4.html">第4章</a>
+  <a href="ch5.html">第5章</a>
+  <a href="ch6.html">第6章</a>
+  <a href="zmatrix.html" class="active">Z矩阵</a>
+  <a href="smatrix.html">S矩阵</a>
+  <a href="videos.html">视频</a>
+</nav>
+<main>
+  <div class="card">
+    <h1>专题：无耗网络Z矩阵的性质推导</h1>
+    <div class="toc">本专题是第5章"网络矩阵性质"的严格数学推导补充，考试中常以"证明/简答"形式考查结论，建议理解推导逻辑而非死记最终公式。</div>
+  </div>
+
+  <div class="card">
+    <h2>推导目标</h2>
+    <p><span class="tag">知识点</span> 对于一个<b>无耗N端口网络</b>，证明其阻抗矩阵[Z]必须满足特定的对称/反对称关系。</p>
+    <div class="formula">
+      出发点：无耗网络净吸收的平均功率为零<br>
+      P_av = (1/2)·Re[ΣᵢUᵢIᵢ*] = (1/2)·Re[I†ZI] = 0　（对任意激励电流向量I均成立）
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>推导步骤</h2>
+    <p><span class="tag">知识点</span> 展开 I†ZI = Σ_m Σ_n I_m* Z_mn I_n，分两种情况讨论：</p>
+    <h3>情况1：m = n（对角元）</h3>
+    <div class="formula">
+      P_av 中 m=n 的项为 (1/2)|I_n|²·Re[Z_nn]<br>
+      由于对任意|I_n|≠0该项的实部贡献必须可被其余交叉项抵消为零，分析可得：<br>
+      <b>Re[Z_nn] = 0</b>　（对角元必为纯电抗，无耗元件自阻抗不能有实部）
+    </div>
+    <h3>情况2：m ≠ n（交叉项）</h3>
+    <p>令 Z_mn = R_mn + jX_mn，Z_nm = R_nm + jX_nm，设 I_m*I_n = a + jb（a、b为任意实数，因为I可任意选取）。代入功率表达式并要求对任意a、b都成立：</p>
+    <div class="formula">
+      Re[I_m*I_n Z_mn + I_n*I_m Z_nm] = a(R_mn+R_nm) + b(X_mn−X_nm) = 0　对任意a,b成立<br>
+      ⟹ R_mn + R_nm = 0　且　X_mn − X_nm = 0
+    </div>
+    <p>即：<b>R_mn = −R_nm</b>（电阻部分反对称），<b>X_mn = X_nm</b>（电抗部分对称）。</p>
+  </div>
+
+  <div class="card">
+    <h2>结论</h2>
+    <div class="formula">
+      无耗网络：R_mn = −R_nm，X_mn = X_nm，Re[Z_nn] = 0<br>
+      若网络同时满足<b>互易</b>（Z_mn = Z_nm，见S矩阵对称性专题的互易定理）：<br>
+      ⟹ R_mn = R_nm 且 R_mn = −R_nm ⟹ R_mn = 0（任意m,n）<br>
+      <b>结论：无耗+互易网络的[Z]矩阵为纯虚矩阵</b>，且满足 [Z] + [Z]† = 0（即[Z]为反厄米矩阵的特殊情形——此处因矩阵为纯虚对称矩阵，[Z]* = −[Z]）
+    </div>
+    <div class="exampoint">
+      <b>考点：</b>"无耗"和"互易"是两个独立条件，必须同时满足才能得到"Z矩阵纯虚"的强结论；仅无耗不互易（如非互易无耗器件）只能得到 R_mn=−R_nm 的反对称关系，不能推出R_mn=0。
+    </div>
+    <div class="teach-box">
+      <b>讲解分析：</b>该推导的核心技巧是"利用电流向量的任意性"——因为I_m、I_n的幅度和相对相位可以任意选取（即a、b独立可变），功率为零这一个标量方程，被拆解出两个独立的矩阵元素约束（实部、虚部各自为零），这是电磁网络理论中"任意性论证"的典型范式，与S矩阵幺正性/对称性证明中"任意激励向量"的论证思路完全一致，建议对照学习。
+    </div>
+  </div>
+
+  <div class="pagenav">
+    <a href="ch6.html">← 第6章 微波元器件</a>
+    <a href="smatrix.html">专题：S矩阵对称性推导 →</a>
+  </div>
+</main>
+<footer>微波技术基础 · 学习指南</footer>
+</body>
+</html>

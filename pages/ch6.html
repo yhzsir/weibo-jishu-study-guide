@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>第6章 微波元器件 · 微波技术基础</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="brand">📡 微波技术基础 · 在线学习指南</div>
+  <div class="sub">第6章 微波元器件（全书的"字典"）</div>
+</header>
+<nav class="topnav">
+  <a href="../index.html">首页</a>
+  <a href="ch1.html">第1章</a>
+  <a href="ch2.html">第2章</a>
+  <a href="ch3.html">第3章</a>
+  <a href="ch4.html">第4章</a>
+  <a href="ch5.html">第5章</a>
+  <a href="ch6.html" class="active">第6章</a>
+  <a href="zmatrix.html">Z矩阵</a>
+  <a href="smatrix.html">S矩阵</a>
+  <a href="videos.html">视频</a>
+</nav>
+<main>
+  <div class="card">
+    <h1>第6章 微波元器件</h1>
+    <div class="toc">
+      结构：6.2 终端元件 → 6.3 连接元件 → 6.4 衰减器和相移器 → 6.5 阻抗匹配元件 → 6.6 功率分配与合成器件 → 6.7 定向耦合器 → 6.8 微波谐振器 → 6.9 微波铁氧体器件。本章是<b>器件字典</b>，考试常以选择/简答考查"原理-用途-S参数特征"三者对应关系。
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>6.2 终端元件 & 6.3 连接元件</h2>
+    <p><span class="tag">知识点</span> 终端负载：匹配负载（吸收全部入射功率，Γ=0，常用于测量基准）、短路/开路活塞（Γ=±1，常用于校准、调配）。连接元件：法兰盘、波导转接头、弯曲波导（E面弯/H面弯）、扭波导（极化旋转90°）。</p>
+    <div class="teach-box"><b>教学建议：</b>这部分以识图和功能记忆为主，不涉及复杂推导，建议结合实物图片/视频理解外形与用途对应关系。</div>
+  </div>
+
+  <div class="card">
+    <h2>6.4 衰减器和相移器</h2>
+    <p><span class="tag">知识点</span> 衰减器：吸收式（电阻片插入波导中部，位置越深衰减越大）、截止式（利用截止波导中场指数衰减，移动探针改变有效长度）。相移器：利用介质片或可变几何结构改变相移常数β·l，而幅度基本不变。</p>
+    <div class="formula">
+      吸收式衰减量（dB）：A = 8.686·α·l（α为衰减常数，随插入深度增大）
+    </div>
+    <div class="exampoint"><b>考点：</b>区分"衰减器"（改变|S21|幅度，相位尽量不变）与"相移器"（改变S21相位，幅度尽量不变）的设计目标差异。</div>
+  </div>
+
+  <div class="card">
+    <h2>6.5 阻抗匹配元件</h2>
+    <p><span class="tag">知识点</span> 在波导/同轴系统中常用<b>螺钉调配器、膜片（感性/容性）、短路活塞</b>实现阻抗匹配，原理与第2章的支节匹配本质相同（引入并联电纳抵消失配部分）。感性膜片（窄边中部开窗）等效并联电感，容性膜片（宽边开窗）等效并联电容。</p>
+    <div class="teach-box"><b>讲解分析：</b>本节是第2章"支节匹配"思想在波导结构中的工程化实现，建议对照2.7节的史密斯圆图匹配方法一起复习，理解"集中参数等效元件"在分布参数系统中的近似实现方式。</div>
+  </div>
+
+  <div class="card">
+    <h2>6.6 功率分配与合成器件</h2>
+    <p><span class="tag">知识点</span> 常见功分器：T形接头（E面T、H面T，3端口但不能同时匹配+隔离+无耗，需配合外加结构改善）、魔T（4端口，兼具功分与差分功能，和臂/差臂相互隔离）、Wilkinson功分器（可匹配、各输出口隔离、等分或不等分功率，是最常用的微带功分结构）。</p>
+    <div class="formula">
+      Wilkinson等分功分器：两臂各为λ/4变换器，特性阻抗 Z=√2·Z₀，隔离电阻 R=2Z₀
+    </div>
+    <div class="exampoint"><b>考点：</b>魔T的四端口S矩阵结构（和臂与差臂之间S=0，体现隔离特性）、Wilkinson为何需要隔离电阻（吸收不平衡时两路反射的功率，保证两输出口互相隔离）。</div>
+  </div>
+
+  <div class="card">
+    <h2>6.7 定向耦合器</h2>
+    <p><span class="tag">知识点</span> 四端口器件，主线输入经耦合支路到耦合端输出一部分功率，隔离端理想情况下无输出。关键指标：</p>
+    <div class="formula">
+      耦合度 C(dB) = −20log|S31|　隔离度 I(dB) = −20log|S41|　方向性 D(dB) = I − C = 20log|S31/S41|
+    </div>
+    <p>常见结构：分支线耦合器（3dB电桥，输出两路相位差90°）、耦合线定向耦合器（基于4.5节奇偶模分析，耦合度由Z₀e、Z₀o决定）。</p>
+    <div class="teach-box"><b>讲解分析：</b>定向耦合器的"方向性"指标直接依赖于奇偶模阻抗设计的精确性（第4.5节），是前后章节贯通考查的典型知识点——若奇偶模相速不等（非TEM耦合线的色散失配），方向性会显著变差，这也是实际微带定向耦合器性能受限的常见原因。</div>
+  </div>
+
+  <div class="card">
+    <h2>6.8 微波谐振器</h2>
+    <p><span class="tag">知识点</span> 微波谐振器是波导/传输线的"终端反射+特定长度"构成的分布参数谐振腔，关键参数是品质因数Q：</p>
+    <div class="formula">
+      Q = ω₀ · (储能) / (单位时间损耗功率) = ω₀W / P_loss<br>
+      矩形/圆柱谐振腔在半波长整数倍处产生谐振（l=pλ_g/2，p为整数）
+    </div>
+    <div class="exampoint"><b>考点：</b>有载Q、无载Q、外部Q三者关系 1/Q_L = 1/Q_0 + 1/Q_ext，是计算题常考公式，需理解耦合强弱对有载Q的影响（过耦合、临界耦合、欠耦合）。</div>
+  </div>
+
+  <div class="card">
+    <h2>6.9 微波铁氧体器件</h2>
+    <p><span class="tag">知识点</span> 铁氧体在外加直流磁场下呈现<b>各向异性（非互易）</b>特性，是本章唯一打破"S矩阵对称"假设的器件类型（对应S矩阵对称性专题中"若网络非互易，S_ij≠S_ji"的情形）。典型器件：隔离器（单向导通，反向大衰减）、环形器（能量按特定方向循环流动，常用于收发共用天线的隔离）。</p>
+    <div class="formula">
+      6.3~6.8节器件均为"互易+无耗"：S_ij=S_ji；6.9节铁氧体器件因各向异性破坏互易性：S_ij≠S_ji
+    </div>
+    <div class="teach-box"><b>讲解分析：</b>这是全书唯一引入非互易器件的章节，建议与"S矩阵对称性推导"专题对照学习——理解"互易定理的物理前提是媒质张量对称（ε、μ为对称张量）"，而磁化铁氧体的磁导率张量是非对称的，从物理根源上解释了为何环形器、隔离器能够实现单向传输。</div>
+  </div>
+
+  <div class="pagenav">
+    <a href="ch5.html">← 第5章 微波网络基础</a>
+    <a href="zmatrix.html">专题：Z矩阵无耗性推导 →</a>
+  </div>
+</main>
+<footer>微波技术基础 · 学习指南</footer>
+</body>
+</html>

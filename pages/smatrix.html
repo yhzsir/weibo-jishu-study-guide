@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>专题 · S矩阵对称性推导 · 微波技术基础</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="brand">📡 微波技术基础 · 在线学习指南</div>
+  <div class="sub">补充专题 · S矩阵对称性推导（互易定理）</div>
+</header>
+<nav class="topnav">
+  <a href="../index.html">首页</a>
+  <a href="ch1.html">第1章</a>
+  <a href="ch2.html">第2章</a>
+  <a href="ch3.html">第3章</a>
+  <a href="ch4.html">第4章</a>
+  <a href="ch5.html">第5章</a>
+  <a href="ch6.html">第6章</a>
+  <a href="zmatrix.html">Z矩阵</a>
+  <a href="smatrix.html" class="active">S矩阵</a>
+  <a href="videos.html">视频</a>
+</nav>
+<main>
+  <div class="card">
+    <h1>专题：互易网络S矩阵对称性推导</h1>
+    <div class="toc">本专题补充第5.4节"S矩阵对称性"结论的推导过程，核心是从Z矩阵的互易性（Z_mn=Z_nm）出发，经由S与Z的变换关系证明S矩阵也满足对称性。</div>
+  </div>
+
+  <div class="card">
+    <h2>推导思路</h2>
+    <p><span class="tag">知识点</span> 双端口网络中，S矩阵与Z矩阵（归一化阻抗矩阵z=Z/Z₀）存在标准变换关系：</p>
+    <div class="formula">
+      S₁₁ = [(z₁₁−1)(z₂₂+1) − z₁₂z₂₁] / [(z₁₁+1)(z₂₂+1) − z₁₂z₂₁]<br>
+      S₂₁ = 2z₂₁ / [(z₁₁+1)(z₂₂+1) − z₁₂z₂₁]<br>
+      S₁₂ = 2z₁₂ / [(z₁₁+1)(z₂₂+1) − z₁₂z₂₁]<br>
+      S₂₂ = [(z₁₁+1)(z₂₂−1) − z₁₂z₂₁] / [(z₁₁+1)(z₂₂+1) − z₁₂z₂₁]
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>代入互易条件</h2>
+    <p><span class="tag">知识点</span> 若网络<b>互易</b>，由电磁场互易定理可得 Z矩阵对称：z₁₂ = z₂₁。将此条件代入 S₁₂、S₂₁ 的表达式：</p>
+    <div class="formula">
+      S₁₂ = 2z₁₂ / D　，　S₂₁ = 2z₂₁ / D　（D为上述共同的分母）<br>
+      由于 z₁₂ = z₂₁，两式分子相同、分母相同<br>
+      ⟹ <b>S₁₂ = S₂₁</b>
+    </div>
+    <p>进一步，若网络还具有几何/电气对称性（即从端口1看进去与从端口2看进去结构完全相同，z₁₁=z₂₂），可得：</p>
+    <div class="formula">
+      如果对称：z₁₁ = z₂₂ ⟹ <b>S₁₁ = S₂₂</b>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>推广到N端口</h2>
+    <p><span class="tag">知识点</span> 上述双端口的证明可推广到任意N端口网络：只要网络满足互易定理（媒质的ε、μ张量对称，即各向同性或对称张量各向异性介质），则：</p>
+    <div class="formula">
+      <b>互易网络：S_ij = S_ji　（对所有i,j成立，即[S]为对称矩阵）</b><br>
+      若网络同时结构对称（第i、j端口等效），则额外有 S_ii = S_jj
+    </div>
+    <div class="exampoint">
+      <b>考点：</b>"对称矩阵"（S_ij=S_ji）来自<b>互易性</b>，"对角元相等"（S_ii=S_jj）来自额外的<b>结构/几何对称性</b>，两者是独立条件，不能混淆；6.9节的铁氧体器件（隔离器、环形器）正是因为破坏互易性（磁导率张量非对称）而使得 S_ij≠S_ji，由此实现单向传输的非互易功能。
+    </div>
+    <div class="teach-box">
+      <b>讲解分析：</b>本专题与"Z矩阵无耗性推导"专题互为姊妹篇：Z矩阵无耗性推导回答的是"能量约束对矩阵元素的限制"，本专题回答的是"互易定理（本质是媒质张量对称）对矩阵元素的限制"。两者结合即可解释第5章表格中"无耗+互易网络"各矩阵性质的全部来源，建议配合第6.9节微波铁氧体器件一起理解互易性被破坏时的物理图像。
+    </div>
+  </div>
+
+  <div class="pagenav">
+    <a href="zmatrix.html">← 专题：Z矩阵无耗性推导</a>
+    <a href="videos.html">教学视频简介 →</a>
+  </div>
+</main>
+<footer>微波技术基础 · 学习指南</footer>
+</body>
+</html>

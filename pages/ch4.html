@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>第4章 微波集成传输线 · 微波技术基础</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="brand">📡 微波技术基础 · 在线学习指南</div>
+  <div class="sub">第4章 微波集成传输线</div>
+</header>
+<nav class="topnav">
+  <a href="../index.html">首页</a>
+  <a href="ch1.html">第1章</a>
+  <a href="ch2.html">第2章</a>
+  <a href="ch3.html">第3章</a>
+  <a href="ch4.html" class="active">第4章</a>
+  <a href="ch5.html">第5章</a>
+  <a href="ch6.html">第6章</a>
+  <a href="zmatrix.html">Z矩阵</a>
+  <a href="smatrix.html">S矩阵</a>
+  <a href="videos.html">视频</a>
+</nav>
+<main>
+  <div class="card">
+    <h1>第4章 微波集成传输线</h1>
+    <div class="toc">
+      本章结构：4.1 概述 → 4.2 同轴线 → 4.3 带状线 → 4.4 微带线 → 4.5 耦合微带线 → 4.6 介质波导与光纤。本质是把第2章"路分析法"的传输线理论用到各种实际工程结构上，核心是记住各结构<b>特性阻抗公式与适用条件</b>。
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>4.2 同轴线</h2>
+    <p><span class="tag">知识点</span> 同轴线主模为TEM模，其高次模是 TE₁₁（截止频率最低的高次模，类比圆波导主模）。</p>
+    <div class="formula">
+      特性阻抗（空气填充）：Z₀ = 60·ln(b/a) Ω（b为外导体内径，a为内导体外径）<br>
+      TE₁₁高次模截止频率：f_c ≈ c / [π(a+b)]（近似式，用平均周长等效圆波导处理）<br>
+      常用取值：Z₀=50Ω（兼顾功率容量、衰减、击穿电压三者折中，通用型）；Z₀=75Ω（衰减最小，适合长距离传输，如有线电视）
+    </div>
+    <div class="example">
+      <details>
+        <summary>[例4.1] 空气同轴线最低高次模截止频率20GHz，求传输衰减最小尺寸a、b，以及50Ω通用型尺寸</summary>
+        <p>由截止频率公式反解 (a+b) ≈ 9.55×10⁷/f_c = 4.775mm。衰减最小条件 b=3.59a，联立得 a≈1.04mm，b≈3.735mm。</p>
+        <p>若改用Z₀=50Ω条件：b/a = e^(50/60) = 2.301，联立 a+b=4.775mm 得 a≈1.447mm，b≈3.328mm。两种设计目标（衰减最小 vs 阻抗通用）给出不同的a、b组合，体现了工程设计中的"多目标权衡"。</p>
+      </details>
+    </div>
+    <div class="exampoint"><b>考点：</b>同一尺寸约束（截止频率固定）下，"衰减最小"与"50Ω通用阻抗"对应不同的b/a比值，是常见计算题的两问设置，注意不要混用条件。</div>
+  </div>
+
+  <div class="card">
+    <h2>4.3 带状线</h2>
+    <p><span class="tag">知识点</span> 带状线由同轴线演化而来（把圆形内外导体"压扁拉直"），上下接地板、中间导带，场型仍为TEM模，适合封闭屏蔽、低辐射场合。</p>
+    <div class="formula">
+      特性阻抗（经验公式，w/b已知时）：Z₀ = 30π·b / [w_e(0.5w+0.441b)]，w_e为有效宽度（考虑带厚t修正）<br>
+      已知Z₀反求 w/b 需查诺莫图或用经验拟合公式迭代求解
+    </div>
+    <div class="example">
+      <details>
+        <summary>[例4.2] Z₀=50Ω，εr=9，t≈0，求 w/b</summary>
+        <p>由设计经验公式/图表反查：w/b≈0.2（当εr较大时导带需做窄以保持阻抗）。</p>
+      </details>
+    </div>
+    <div class="example">
+      <details>
+        <summary>[例4.3] b=2mm, t=0.1mm, w=1.7mm, εr=1.2，求Z₀</summary>
+        <p>先求 w/b=0.85，查/算有效宽度修正后代入阻抗公式，得到对应Z₀（由图表读出约数十欧姆量级，具体数值依据课件设计曲线确定）。</p>
+      </details>
+    </div>
+    <div class="teach-box"><b>教学建议：</b>带状线阻抗公式较繁琐，考试更侧重"已知阻抗查w/b"或"已知w/b查阻抗"的查图/查表能力和物理趋势判断（w越宽阻抗越低，εr越大阻抗越低），不要求死记复杂经验公式本身。</div>
+  </div>
+
+  <div class="card">
+    <h2>4.4 微带线</h2>
+    <p><span class="tag">知识点</span> 微带线上表面开放，场一部分在空气中、一部分在介质中，严格来说是<b>准TEM模</b>，需要引入<b>有效介电常数 ε_re</b> 描述等效单一介质：</p>
+    <div class="formula">
+      有效介电常数：ε_re ≈ (εr+1)/2 + (εr−1)/2 · 1/√(1+12h/w)（w/h &gt; 1时的常用近似）<br>
+      特性阻抗（w/h&gt;1）：Z₀ = 120π / {√ε_re · [w/h + 1.393 + 0.667ln(w/h+1.444)]}<br>
+      已知Z₀反求w/h需用综合设计公式或迭代/查图
+    </div>
+    <div class="example">
+      <details>
+        <summary>[例4.5] 微带线 w=2mm, t→0, h=1mm, εr已知，求ε_re与Z₀</summary>
+        <p>先算 w/h=2，代入ε_re近似式得到有效介电常数（约在εr与1之间的某折中值），再代入Z₀公式求出特性阻抗，具体数值依据εr取值计算。</p>
+      </details>
+    </div>
+    <div class="exampoint"><b>考点：</b>"为什么微带线是准TEM而非纯TEM？" —— 标准答案：场在空气-介质分界面处不连续分布（介质中场集中，空气中场稀疏），严格满足TEM条件（横向场、无纵向分量）只在εr均匀填充整个空间时成立；微带开放结构破坏了这一前提，纵向分量很小但不为零，故称"准TEM"。</div>
+  </div>
+
+  <div class="card">
+    <h2>4.5 耦合微带线</h2>
+    <p><span class="tag">知识点</span> 两根平行微带线靠得较近时存在电磁耦合，需用<b>奇模/偶模分析法</b>：</p>
+    <div class="formula">
+      偶模（两线电位同相）：电场基本不穿越中线，等效于中线处开路（磁壁）<br>
+      奇模（两线电位反相）：电场在中线处对称分布，等效于中线处短路（电壁）<br>
+      耦合系数、定向耦合器设计均基于奇偶模阻抗 Z₀e、Z₀o 的组合：Z₀ = √(Z₀e·Z₀o)
+    </div>
+    <div class="example">
+      <details>
+        <summary>[例4.6] 耦合微带线 w=1mm, t=0.1mm, 间距s已知，求耦合特性</summary>
+        <p>分别用奇偶模等效电路求 Z₀e 与 Z₀o，再代入耦合度公式 C=20log[(Z₀e−Z₀o)/(Z₀e+Z₀o)] 求耦合度（dB）。</p>
+      </details>
+    </div>
+    <div class="teach-box"><b>讲解分析：</b>奇偶模分解是处理一切"对称双线耦合问题"的通用武器，第6章的耦合定向耦合器设计正是建立在本节基础上，务必理解"对称结构可按偶模/奇模叠加求解"的思想，而非死记具体数值公式。</div>
+  </div>
+
+  <div class="card">
+    <h2>4.6 介质波导与光纤</h2>
+    <p><span class="tag">知识点</span> 介质波导靠<b>全反射</b>导波（纤芯折射率 n₁ 大于包层 n₂），无需金属壁。光纤归一化频率（V数）决定模式数：</p>
+    <div class="formula">
+      归一化频率：V = (2πa/λ)·√(n₁²−n₂²)<br>
+      单模条件：V &lt; 2.405（第一个高次模LP₁₁的截止V值，源于贝塞尔函数零点）<br>
+      常用光通信波长窗口：0.8μm（早期）、1.3μm（色散最小）、1.55μm（损耗最小，目前主流）
+    </div>
+    <div class="teach-box"><b>教学建议：</b>2.405这个数字与圆波导TM₀₁截止波数的贝塞尔函数零点一致，是"场分析法"思想在介质波导中的呼应——建议与第3章圆波导对照记忆，理解弱导近似下光纤模式与圆波导模式的数学相似性。</div>
+  </div>
+
+  <div class="pagenav">
+    <a href="ch3.html">← 第3章 规则金属波导</a>
+    <a href="ch5.html">第5章：微波网络基础 →</a>
+  </div>
+</main>
+<footer>微波技术基础 · 学习指南</footer>
+</body>
+</html>

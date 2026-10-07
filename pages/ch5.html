@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>第5章 微波网络基础 · 微波技术基础</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="brand">📡 微波技术基础 · 在线学习指南</div>
+  <div class="sub">第5章 微波网络基础（全书的"语言"）</div>
+</header>
+<nav class="topnav">
+  <a href="../index.html">首页</a>
+  <a href="ch1.html">第1章</a>
+  <a href="ch2.html">第2章</a>
+  <a href="ch3.html">第3章</a>
+  <a href="ch4.html">第4章</a>
+  <a href="ch5.html" class="active">第5章</a>
+  <a href="ch6.html">第6章</a>
+  <a href="zmatrix.html">Z矩阵</a>
+  <a href="smatrix.html">S矩阵</a>
+  <a href="videos.html">视频</a>
+</nav>
+<main>
+  <div class="card">
+    <h1>第5章 微波网络基础</h1>
+    <div class="toc">
+      本章结构：5.2 等效传输线 → 5.3 双端口网络的阻抗/导纳/ABCD矩阵 → 5.4 散射矩阵与传输矩阵 → 5.5 多端口网络。<span class="tag exam">考试权重最高章节之一</span> 核心是把复杂微波结构抽象为"黑箱"，用矩阵描述端口关系。
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>5.2 等效传输线</h2>
+    <p><span class="tag">知识点</span> 把波导中的某个模式等效为传输线上的电压电流，便于借用第2章成熟的传输线方法分析波导问题。关键是定义等效电压U、电流I、等效特性阻抗Z_e，使得等效功率与真实模式的坡印廷矢量积分功率一致。</p>
+    <div class="example">
+      <details>
+        <summary>[例5.1] 求矩形波导TE₁₀模式的等效U、I、Z_e</summary>
+        <p>以TE₁₀模的E_y、H_x场分布为基础，沿参考面积分得到等效电压（正比于场幅值）、等效电流（正比于H_x积分），再由P=UI*/2反解等效阻抗Z_e，Z_e与真实波阻抗成正比但含有归一化常数的选择自由度（电压-电流归一化、功率-电压归一化、功率-电流归一化三种常见定义）。</p>
+      </details>
+    </div>
+    <div class="teach-box"><b>讲解分析：</b>等效电压电流不是唯一定义，重点理解"等效"的目的——用路的语言描述场的问题，方便与第5.3节的网络矩阵衔接。</div>
+  </div>
+
+  <div class="card">
+    <h2>5.3 双端口网络的阻抗与ABCD矩阵</h2>
+    <p><span class="tag">知识点</span> 四种常用矩阵及适用场合：</p>
+    <table>
+      <tr><th>矩阵</th><th>关系式</th><th>适用场合</th></tr>
+      <tr><td>Z矩阵（阻抗）</td><td>[U]=[Z][I]</td><td>串联网络组合方便相加</td></tr>
+      <tr><td>Y矩阵（导纳）</td><td>[I]=[Y][U]</td><td>并联网络组合方便相加</td></tr>
+      <tr><td>ABCD矩阵（传输）</td><td>U1=A·U2+B·(−I2)，I1=C·U2+D·(−I2)</td><td>级联网络直接矩阵相乘，是级联分析首选</td></tr>
+    </table>
+    <div class="formula">
+      无耗、互易网络的 Z 矩阵满足：Z_mn = −Z_nm 的虚部关系（纯虚、反对称见"Z矩阵无耗性"专题）<br>
+      ABCD 行列式：AD−BC=1（互易网络必满足）
+    </div>
+    <div class="example">
+      <details>
+        <summary>[例5.2] 求该双端口网络的[Z]和[Y]</summary>
+        <p>分别令I2=0（开路）、I1=0（开路）测出各开路阻抗得到Z矩阵四元素；Y矩阵可由Z矩阵求逆（[Y]=[Z]⁻¹），或直接用短路法测得。</p>
+      </details>
+    </div>
+    <div class="example">
+      <details>
+        <summary>[例5.3] 求T形网络的[A]阵</summary>
+        <p>T形网络由串联阻抗Z1、并联阻抗Z2、串联阻抗Z3组成，分段级联三个基本两端口（串联阻抗ABCD阵、并联阻抗ABCD阵）后矩阵相乘得到总ABCD矩阵，体现"级联用ABCD"的核心优势。</p>
+      </details>
+    </div>
+    <div class="exampoint"><b>考点：</b>Z、Y、ABCD三种矩阵的互相转换公式，以及"为什么级联网络要用ABCD而不是Z/Y矩阵"（因为级联时ABCD矩阵直接相乘，Z/Y矩阵级联运算复杂）是高频简答与计算综合题考点。</div>
+  </div>
+
+  <div class="card">
+    <h2>5.4 散射矩阵（S矩阵）与传输矩阵</h2>
+    <p><span class="tag">知识点</span> S矩阵用入射波a和反射波b描述端口关系：[b]=[S][a]，S_ij表示"第j端口入射、第i端口反射/传输"的系数。相比Z/Y/ABCD矩阵，S矩阵的优势是<b>直接可测（用网络分析仪测反射/传输功率比）</b>，不需要开路短路这类在微波高频下难以实现的理想条件。</p>
+    <div class="formula">
+      无耗网络：[S]为幺正矩阵，[S]*[S]^T = [I]（能量守恒，各端口功率之和不变）<br>
+      互易网络：[S]对称，S_ij = S_ji （见"S矩阵对称性"专题推导）<br>
+      反射系数：S_ii = Γ_i（第i端口接匹配负载时的自反射系数）
+    </div>
+    <div class="example">
+      <details>
+        <summary>[例5.5] 3dB衰减器，求[S]阵</summary>
+        <p>3dB衰减对应功率减半，电压传输系数 |S21|=1/√2≈0.707；若网络对称匹配，S11=S22=0，S12=S21=0.707∠0°（理想衰减器相位不变），对应衰减量 −20log(0.707)≈3dB，與题设吻合。</p>
+      </details>
+    </div>
+    <div class="example">
+      <details>
+        <summary>[例5.6] 已知各端口S参数幅相值，求级联/端接后的总传输/反射特性</summary>
+        <p>利用信号流图法（Mason公式）或直接矩阵运算，逐步代入边界条件（端口接匹配负载Γ=0，或接给定负载反推等效Γ），可求得端口间总增益约为例题给出的6.9dB左右（具体数值依据原始幅相参数计算）。</p>
+      </details>
+    </div>
+    <div class="teach-box"><b>讲解分析：</b>S矩阵的物理意义和测量便利性是它成为微波工程"通用语言"的根本原因。教学建议：先讲清楚"为什么低频用Z/Y，高频必须用S"（高频下开短路边界条件难以实现、易引入寄生效应），再进入幺正性/对称性等数学性质。</div>
+  </div>
+
+  <div class="card">
+    <h2>5.5 多端口网络</h2>
+    <p><span class="tag">知识点</span> 两端口网络的分析方法（ABCD级联、S参数转换）可推广到N端口。常见多端口器件：功分器（1分N）、环形器（非互易、单向传输）、定向耦合器（4端口）等，将在第6章具体展开。</p>
+    <div class="exampoint"><b>考点：</b>多端口网络中"互易"与"无耗"是两个独立但常同时讨论的性质，二者分别对应S矩阵的"对称"与"幺正"，不要混为一谈——环形器就是互易性破坏（非互易）但仍可无耗的典型反例。</div>
+  </div>
+
+  <div class="pagenav">
+    <a href="ch4.html">← 第4章 微波集成传输线</a>
+    <a href="ch6.html">第6章：微波元器件 →</a>
+  </div>
+</main>
+<footer>微波技术基础 · 学习指南</footer>
+</body>
+</html>
